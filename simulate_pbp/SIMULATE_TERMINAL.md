@@ -2,6 +2,7 @@ python simulate_pbp/train_gated_play_models.py --csv nfl_data_py/pbp_data.csv --
 
 python simulate_pbp/train_punt_models.py --csv nfl_data_py/pbp_data.csv --outdir simulate_pbp --val_size 0.2 --random_state 42
 
+python simulate_pbp/train_run_models.py --csv nfl_data_py/pbp_data.csv --outdir simulate_pbp --val_size 0.2 --random_state 42
 
 python simulate_pbp/train_gated_play_models.py \
   --csv nfl_data_py/pbp_data.csv \
@@ -21,3 +22,6 @@ predict_play_type('BUF', 1, 10, 75, 2, 0, 0, 3, 3, decision='sample', temperatur
 predict_play_type('BUF', 1, 10, 75, 2, 0, 0, 3, 3, decision='epsilon_greedy', epsilon=0.1, random_state=42)
 
 python -c "import sys; sys.path.append('simulate_pbp'); from punt_sim import simulate_punt; print(simulate_punt('BUF','NE',10,70,2,0,0,3,3, decision='sample'))"
+
+python -c "import sys; sys.path.append('simulate_pbp'); from run_sim import simulate_run; \
+print(simulate_run('BUF','NE',1,10,75,2,0,0,3,3, decision='sample', random_state=42))"

@@ -1,0 +1,28 @@
+{
+  "features_base": [
+    "posteam",
+    "defteam",
+    "down",
+    "ydstogo",
+    "yardline_100",
+    "qtr",
+    "under_2_minutes",
+    "score_differential",
+    "posteam_timeouts_remaining",
+    "defteam_timeouts_remaining"
+  ],
+  "categorical": [
+    "posteam",
+    "defteam",
+    "qtr",
+    "run_location",
+    "run_gap"
+  ],
+  "have_oob": true,
+  "metrics": {
+    "yards_mae": 3.7384889054132047,
+    "yards_rmse": 6.286404600991973,
+    "fumble_acc": 0.9919124643196955,
+    "oob_acc": 0.9189207557428299
+  }
+}
