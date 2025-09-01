@@ -207,7 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 *.pkl
-gated_metrics.json
 
 nfl_data_py/*
 pff/*

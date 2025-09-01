@@ -1,0 +1,6 @@
+{
+  "early_pass_run_val_acc": 0.67767052579394,
+  "fourth_kick3_val_acc": 0.8617489008304836,
+  "fourth_punt_go_val_acc": 0.9362033195020747,
+  "fourth_pass_run_val_acc": 0.8081321473951716
+}

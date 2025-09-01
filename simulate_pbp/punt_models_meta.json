@@ -1,0 +1,33 @@
+{
+  "features_base": [
+    "posteam",
+    "defteam",
+    "ydstogo",
+    "yardline_100",
+    "qtr",
+    "under_2_minutes",
+    "score_differential",
+    "posteam_timeouts_remaining",
+    "defteam_timeouts_remaining"
+  ],
+  "categorical": [
+    "posteam",
+    "defteam",
+    "qtr"
+  ],
+  "have_multi_outcome": true,
+  "labels_outcome": [
+    "downed",
+    "out_of_bounds",
+    "return",
+    "touchback"
+  ],
+  "metrics": {
+    "blocked_acc": 0.9949748743718593,
+    "kickdist_mae": 6.510185651847258,
+    "kickdist_rmse": 9.043229678639493,
+    "outcome_acc": 0.7135678391959799,
+    "returnyards_mae": 4.690716599476625,
+    "returnyards_rmse": 7.765120380362255
+  }
+}
