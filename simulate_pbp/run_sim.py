@@ -12,6 +12,7 @@ def _load(name):
 
 _M_YARDS = _load('run_model_yards.pkl')
 _M_FUM   = _load('run_model_fumble.pkl')
+_M_FL    = _load('run_model_fumble_lost.pkl')
 _M_OOB   = _load('run_model_oob.pkl')
 
 _META = json.load(open(_BASE/'run_models_meta.json','r'))
@@ -50,41 +51,45 @@ def simulate_run(team, defteam, down, ydstogo, yard_line, quarter, under_2_minut
     row = _row(team, defteam, down, ydstogo, yard_line, quarter, under_2_minutes, score_differential, timeouts_off, timeouts_def, run_location, run_gap)
     cols = list(_BASE_FEATS) + [c for c in ['run_location','run_gap'] if c in _META['categorical']]
     X = pd.DataFrame([row], columns=cols)
-
-    # yards
     y = float(_M_YARDS.predict(X)[0]) if _M_YARDS is not None else 4.0
     sigma = float(yards_noise) if yards_noise is not None else _YARDS_RMSE
     if add_noise and sigma > 0:
         y += sigma * rng.standard_normal()
     y = float(np.clip(y, min_yards, max_yards))
-
-    # td by geometry
     td = bool(y >= float(yard_line))
     if td:
         y = float(yard_line)
-
-    # fumble
     if _M_FUM is None:
         p_fum = 0.015
     else:
         proba = _M_FUM.predict_proba(X)[0]
-        # proba order aligns with classes_
         cls = list(_M_FUM.classes_)
         p_fum = float(proba[cls.index(1)]) if 1 in cls else float(proba[-1])
     fumble = bool(rng.random() < p_fum) if decision=='sample' else (p_fum >= 0.5)
-
-    # out of bounds
+    fumble_lost = False
+    recovery_team = team
+    if fumble:
+        if _M_FL is None:
+            p_lost = 0.5
+        else:
+            proba = _M_FL.predict_proba(X)[0]
+            cls = list(_M_FL.classes_)
+            p_lost = float(proba[cls.index(1)]) if 1 in cls else float(proba[-1])
+        fumble_lost = bool(rng.random() < p_lost) if decision=='sample' else (p_lost >= 0.5)
+        recovery_team = defteam if fumble_lost else team
     if _HAVE_OOB and _M_OOB is not None:
-        proba = _M_OOB.predict_proba(X)[0]; cls = list(_M_OOB.classes_)
+        proba = _M_OOB.predict_proba(X)[0]
+        cls = list(_M_OOB.classes_)
         p_oob = float(proba[cls.index(1)]) if 1 in cls else float(proba[-1])
         oob = bool(rng.random() < p_oob) if decision=='sample' else (p_oob >= 0.5)
     else:
         oob = bool(rng.random() < 0.2) if decision=='sample' else False
-
     return {
         'play_type': 'run',
         'yards_gained': y,
         'td': td,
         'fumble': fumble,
+        'fumble_lost': fumble_lost,
+        'recovery_team': recovery_team,
         'out_of_bounds': oob
     }
