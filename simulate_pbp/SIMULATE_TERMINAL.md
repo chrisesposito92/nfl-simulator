@@ -4,6 +4,8 @@ python simulate_pbp/train_punt_models.py --csv nfl_data_py/pbp_data.csv --outdir
 
 python simulate_pbp/train_run_models.py --csv nfl_data_py/pbp_data.csv --outdir simulate_pbp --val_size 0.2 --random_state 42
 
+python simulate_pbp/train_pass_models.py --csv nfl_data_py/pbp_data.csv --outdir simulate_pbp --val_size 0.2 --random_state 42
+
 python simulate_pbp/train_gated_play_models.py \
   --csv nfl_data_py/pbp_data.csv \
   --outdir simulate_pbp/models \
@@ -25,3 +27,6 @@ python -c "import sys; sys.path.append('simulate_pbp'); from punt_sim import sim
 
 python -c "import sys; sys.path.append('simulate_pbp'); from run_sim import simulate_run; \
 print(simulate_run('BUF','NE',1,10,75,2,0,0,3,3, decision='sample', random_state=42))"
+
+python -c "import sys; sys.path.append('simulate_pbp'); from pass_sim import simulate_pass; \
+print(simulate_pass('BUF','NE',1,10,75,2,0,0,3,3, decision='sample', random_state=42))"

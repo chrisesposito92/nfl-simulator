@@ -1,0 +1,36 @@
+{
+  "features_base": [
+    "posteam",
+    "defteam",
+    "down",
+    "ydstogo",
+    "yardline_100",
+    "qtr",
+    "under_2_minutes",
+    "score_differential",
+    "posteam_timeouts_remaining",
+    "defteam_timeouts_remaining"
+  ],
+  "categorical": [
+    "posteam",
+    "defteam",
+    "qtr",
+    "pass_location",
+    "pass_length"
+  ],
+  "labels_result": [
+    "complete",
+    "incomplete",
+    "interception"
+  ],
+  "metrics": {
+    "sack_acc": 0.9328259268352566,
+    "air_mae": 4.607836060422806,
+    "air_rmse": 5.932149671163722,
+    "result_acc": 0.6636702938548074,
+    "yac_mae": 4.451532549325486,
+    "yac_rmse": 6.609542244966018,
+    "rec_fumble_acc": 0.9882001131496,
+    "rec_fumble_lost_acc": 0.5172413793103449
+  }
+}
